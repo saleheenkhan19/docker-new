@@ -1,5 +1,7 @@
 # Use a smaller base image like node:alpine
 FROM node:alpine
+RUN addgroup app && adduser -S -G app app
+USER app
 
 # Set the working directory
 WORKDIR /app
@@ -8,7 +10,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm Install
 
 EXPOSE 2000
 
@@ -16,4 +18,4 @@ EXPOSE 2000
 COPY . .
 
 # Specify the command to run the application
-CMD ["node", "App.js"]
+CMD ["node", "start"]
